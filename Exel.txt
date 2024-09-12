@@ -1,0 +1,115 @@
+Copy and paste following VBA code
+
+https://www.youtube.com/watch?v=he56iQceB0w
+'''
+Sub PasswordBreaker()
+'Breaks worksheet password protection.
+Dim i As Integer, j As Integer, k As Integer
+Dim l As Integer, m As Integer, n As Integer
+Dim i1 As Integer, i2 As Integer, i3 As Integer
+Dim i4 As Integer, i5 As Integer, i6 As Integer
+On Error Resume Next
+For i = 65 To 66: For j = 65 To 66: For k = 65 To 66
+For l = 65 To 66: For m = 65 To 66: For i1 = 65 To 66
+For i2 = 65 To 66: For i3 = 65 To 66: For i4 = 65 To 66
+For i5 = 65 To 66: For i6 = 65 To 66: For n = 32 To 126
+ActiveSheet.Unprotect Chr(i) & Chr(j) & Chr(k) & _
+Chr(l) & Chr(m) & Chr(i1) & Chr(i2) & Chr(i3) & _
+Chr(i4) & Chr(i5) & Chr(i6) & Chr(n)
+If ActiveSheet.ProtectContents = False Then
+MsgBox "One usable password is " & Chr(i) & Chr(j) & _
+Chr(k) & Chr(l) & Chr(m) & Chr(i1) & Chr(i2) & _
+Chr(i3) & Chr(i4) & Chr(i5) & Chr(i6) & Chr(n)
+Exit Sub
+End If
+Next: Next: Next: Next: Next: Next
+Next: Next: Next: Next: Next: Next
+End Sub
+'''
+
+## Exel taka to word
+
+Function SpellNumber(amt As Variant) As Variant
+Dim FIGURE As Variant
+Dim LENFIG As Integer
+Dim i As Integer
+Dim WORDs(19) As String
+Dim tens(9) As String
+WORDs(1) = "One"
+WORDs(2) = "Two"
+WORDs(3) = "Three"
+WORDs(4) = "Four"
+WORDs(5) = "Five"
+WORDs(6) = "Six"
+WORDs(7) = "Seven"
+WORDs(8) = "Eight"
+WORDs(9) = "Nine"
+WORDs(10) = "Ten"
+WORDs(11) = "Eleven"
+WORDs(12) = "Twelve"
+WORDs(13) = "Thirteen"
+WORDs(14) = "Fourteen"
+WORDs(15) = "Fifteen"
+WORDs(16) = "Sixteen"
+WORDs(17) = "Seventeen"
+WORDs(18) = "Eighteen"
+WORDs(19) = "Nineteen"
+tens(2) = "Twenty"
+tens(3) = "Thirty"
+tens(4) = "Fourty"
+tens(5) = "Fifty"
+tens(6) = "Sixty"
+tens(7) = "Seventy"
+tens(8) = "Eighty"
+tens(9) = "Ninety"
+FIGURE = amt
+FIGURE = Format(FIGURE, "FIXED")
+FIGLEN = Len(FIGURE)
+If FIGLEN < 12 Then
+FIGURE = Space(12 - FIGLEN) & FIGURE
+End If
+For i = 1 To 3
+If Val(Left(FIGURE, 2)) < 20 And Val(Left(FIGURE, 2)) > 0 Then
+SpellNumber = SpellNumber & WORDs(Val(Left(FIGURE, 2)))
+ElseIf Val(Left(FIGURE, 2)) > 19 Then
+SpellNumber = SpellNumber & tens(Val(Left(FIGURE, 1)))
+SpellNumber = SpellNumber & WORDs(Val(Right(Left(FIGURE, 2), 1)))
+End If
+If i = 1 And Val(Left(FIGURE, 2)) > 0 Then
+SpellNumber = SpellNumber & " Crore "
+ElseIf i = 2 And Val(Left(FIGURE, 2)) > 0 Then
+SpellNumber = SpellNumber & " Lakh "
+ElseIf i = 3 And Val(Left(FIGURE, 2)) > 0 Then
+SpellNumber = SpellNumber & " Thousand "
+End If
+FIGURE = Mid(FIGURE, 3)
+Next i
+If Val(Left(FIGURE, 1)) > 0 Then
+SpellNumber = SpellNumber & WORDs(Val(Left(FIGURE, 1))) + " Hundred "
+End If
+FIGURE = Mid(FIGURE, 2)
+If Val(Left(FIGURE, 2)) < 20 And Val(Left(FIGURE, 2)) > 0 Then
+SpellNumber = SpellNumber & WORDs(Val(Left(FIGURE, 2)))
+ElseIf Val(Left(FIGURE, 2)) > 19 Then
+SpellNumber = SpellNumber & tens(Val(Left(FIGURE, 1)))
+SpellNumber = SpellNumber & WORDs(Val(Right(Left(FIGURE, 2), 1)))
+End If
+FIGURE = Mid(FIGURE, 4)
+If Val(FIGURE) > 0 Then
+SpellNumber = SpellNumber & " Paise "
+If Val(Left(FIGURE, 2)) < 20 And Val(Left(FIGURE, 2)) > 0 Then
+SpellNumber = SpellNumber & WORDs(Val(Left(FIGURE, 2)))
+ElseIf Val(Left(FIGURE, 2)) > 19 Then
+SpellNumber = SpellNumber & tens(Val(Left(FIGURE, 1)))
+SpellNumber = SpellNumber & WORDs(Val(Right(Left(FIGURE, 2), 1)))
+End If
+End If
+FIGURE = amt
+FIGURE = Format(FIGURE, "FIXED")
+If Val(FIGURE) > 0 Then
+SpellNumber = SpellNumber & " Taka Only "
+End If
+End Function
+
+
+
